@@ -1,0 +1,17 @@
+{
+  "account": "warnedwarn",
+  "wallet": "0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A",
+  "network": "StudioNet",
+  "contractAddress": "0xf05e56187452601F14ffec9ab2Beb66f9881e2D1",
+  "deploymentTransaction": "0x26850766ca90990f8adc92dc0b1d256493b667a9f7966bf6b265ef2a738261a0",
+  "sourceCommit": "51e4dfab0d4650d3ff9694a691fae654bf34a497",
+  "sourceSha256": "edf7aea71cc0f8b64b8e54b306573451181414fd0e208937d609d8c349fd92acb",
+  "liveRecordId": "LIVE-1789762047",
+  "liveState": "VERIFIED",
+  "liveTransactions": {
+    "specify": "0xac79fbaa42130a8adefc3e28549d850b6ba28d56c0b4527fce5f9a5694f859d1",
+    "recordRun": "0xc14748e7f346ad6111d6bac1a74e3ca52eb395e1f50357af1fab9242b1d52705",
+    "finalize": "0x32dcbeb7460df8eb9af8e5d9e4250e30ba37484ad1ad2c15c3cd5f3ff004985c"
+  },
+  "publicSite": "https://warnedwarn.github.io/fixture-forge/"
+}

@@ -27,4 +27,4 @@ The files under `evidence/` are plainly labelled operator-created technical fixt
 
 ## Studio coordinates
 
-Deployment coordinates and finalized lifecycle transactions are recorded in `deployment.json` after the exact reviewed source is published.
+StudioNet contract: [`0xf05e56187452601F14ffec9ab2Beb66f9881e2D1`](https://explorer-studio.genlayer.com/address/0xf05e56187452601F14ffec9ab2Beb66f9881e2D1). Live record `LIVE-1789762047` was specified by the author, recorded by a separate runner, and permissionlessly finalized after its challenge window as `VERIFIED`. All three transactions finalized successfully. Exact hashes and the deployed-source digest live in `deployment.json`. The public bench is published at [warnedwarn.github.io/fixture-forge](https://warnedwarn.github.io/fixture-forge/).
