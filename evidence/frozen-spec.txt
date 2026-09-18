@@ -1,0 +1,5 @@
+FIXTURE FORGE TECHNICAL DEMO — OPERATOR-CREATED FIXTURE
+Environment: Python 3.13 / UTF-8 / Linux
+Input: alpha
+Expected output: sha256:8ed3f6ad685b959ead7022518e1af76cd816f8e8ec7ccdda1ed4018e8f2223f8
+This record is a technical demo and is not an independent authority.

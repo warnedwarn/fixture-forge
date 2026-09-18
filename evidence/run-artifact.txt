@@ -1,0 +1,6 @@
+FIXTURE FORGE TECHNICAL DEMO — OPERATOR-CREATED RUN ARTIFACT
+Runtime: Python 3.13
+Encoding: UTF-8
+Platform: Linux
+Input bytes: 61 6c 70 68 61
+No undeclared dependency was loaded.
