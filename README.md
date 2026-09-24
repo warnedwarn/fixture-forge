@@ -4,11 +4,11 @@
 
 ## Drawer A: what gets frozen
 
-The author nominates a runner and a separate challenger, then seals a public specification, the exact expected output, the execution environment, and a bounded challenge window. The nominated runner cannot substitute a private log: the observed output and run artifact must come from two additional HTTPS origins.
+The author nominates a runner and a separate challenger, then fetches and hash-pins a public specification at creation alongside the exact expected output, execution environment, and bounded challenge window. A later run refetches that specification and fails if its bytes no longer match the creation digest. The nominated runner cannot substitute a private log: the observed output and run artifact must come from two additional HTTPS origins.
 
 ## Drawer B: what the quorum examines
 
-Validators independently fetch the specification, output, and artifact. They agree on a closed `REPRODUCED` or `DIVERGED` verdict, a bounded variance note, and the digest of every fetched byte sequence. A leader cannot relabel the result or detach it from its sources without failing validator comparison.
+Validators independently fetch the specification, output, and artifact. Every source must be valid UTF-8 and no larger than 12,000 bytes. They agree on a closed `REPRODUCED` or `DIVERGED` verdict, a bounded variance note, and the digest of every fetched byte sequence. A leader cannot relabel the result, replace the frozen specification, or detach the verdict from its sources without failing validator comparison.
 
 ## Drawer C: how a record closes
 
