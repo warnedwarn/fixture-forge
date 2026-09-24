@@ -2,16 +2,18 @@
   "account": "warnedwarn",
   "wallet": "0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A",
   "network": "StudioNet",
-  "contractAddress": "0xf05e56187452601F14ffec9ab2Beb66f9881e2D1",
-  "deploymentTransaction": "0x26850766ca90990f8adc92dc0b1d256493b667a9f7966bf6b265ef2a738261a0",
-  "sourceCommit": "51e4dfab0d4650d3ff9694a691fae654bf34a497",
-  "sourceSha256": "edf7aea71cc0f8b64b8e54b306573451181414fd0e208937d609d8c349fd92acb",
-  "liveRecordId": "LIVE-1789762047",
+  "contractAddress": "0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8",
+  "deploymentTransaction": "0xb89ae70eeb3bace8a91b18aa5c808509cb664d899f998e7beb028fa0e7a813c5",
+  "sourceCommit": "5c531bc4c3a299923819c173900fc9e9e1fb2c5a",
+  "sourceSha256": "4139062a1f005243fdf62c80a7aa9532ea2c1f2d7afe596851581c417e3a1548",
+  "sourceMatchVerified": true,
+  "liveRecordId": "REMEDIATION-1790254214",
   "liveState": "VERIFIED",
+  "liveSpecDigest": "3069e038dd01b1df28f3fc3d189f28c034b45964896454f38cf8cc7efb866c5e",
   "liveTransactions": {
-    "specify": "0xac79fbaa42130a8adefc3e28549d850b6ba28d56c0b4527fce5f9a5694f859d1",
-    "recordRun": "0xc14748e7f346ad6111d6bac1a74e3ca52eb395e1f50357af1fab9242b1d52705",
-    "finalize": "0x32dcbeb7460df8eb9af8e5d9e4250e30ba37484ad1ad2c15c3cd5f3ff004985c"
+    "specify": "0x982f8d757812e2e91fb92778b58060c7d092e7ba29fd25a4fd06b990eaa0ee67",
+    "recordRun": "0xfb1fc4383a50be81320544a934afed251a1a412c158236ed46d3bcce732db19d",
+    "finalize": "0xa27007d623070336aa5bcb6cc92cb8b2eaaf7c597cbc8a826dcc2764b02679b8"
   },
   "publicSite": "https://warnedwarn-fixture-forge.pages.dev/"
 }

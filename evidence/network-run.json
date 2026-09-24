@@ -1,0 +1,17 @@
+{
+  "recordId": "REMEDIATION-1790254214",
+  "state": "VERIFIED",
+  "specDigest": "3069e038dd01b1df28f3fc3d189f28c034b45964896454f38cf8cc7efb866c5e",
+  "transactions": {
+    "specify": "0x982f8d757812e2e91fb92778b58060c7d092e7ba29fd25a4fd06b990eaa0ee67",
+    "recordRun": "0xfb1fc4383a50be81320544a934afed251a1a412c158236ed46d3bcce732db19d",
+    "finalize": "0xa27007d623070336aa5bcb6cc92cb8b2eaaf7c597cbc8a826dcc2764b02679b8"
+  },
+  "roles": {
+    "author": "0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A",
+    "runner": "0xAD049E0Edc298C97552eD60071a35bfc60181FD4",
+    "challenger": "0x05C0cc3F433F6e296f18117f558FdB9043434793",
+    "finalizer": "0x412d61db014fCdDda12e33b826f63B8ef9AC2E87"
+  },
+  "roleEvidence": "Separate user-controlled demo addresses; this proves address separation, not independent authority."
+}

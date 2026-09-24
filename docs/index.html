@@ -1,7 +1,578 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Fixture Forge</title><style>
-:root{--ink:#17140f;--paper:#eee7d5;--red:#ff4f36;--yellow:#ffd84b;--steel:#aeb7b4;--blue:#1746ff}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.4 Arial,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer}.pegboard{background-color:#d9d0bd;background-image:radial-gradient(#8e877b 1.4px,transparent 1.4px);background-size:19px 19px;min-height:100vh;padding:22px 4vw 80px}header{display:flex;justify-content:space-between;align-items:center;border:3px solid;background:var(--yellow);padding:13px 18px;box-shadow:7px 7px 0 var(--ink);font:900 .75rem monospace;letter-spacing:.12em}.connect{background:var(--ink);color:white;border:0;padding:9px 13px;font-weight:900}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:8vw;align-items:end;padding:10vh 2vw 7vh}.hero h1{font:900 clamp(4.4rem,12vw,11rem)/.72 Arial Black;margin:0;letter-spacing:-.09em}.hero p{font:1.3rem/1.5 Georgia;max-width:30rem}.hero button{background:var(--red);border:3px solid;padding:15px 20px;font-weight:900;box-shadow:6px 6px 0 var(--ink)}.bench{display:grid;grid-template-columns:.8fr 1.2fr;gap:28px;align-items:start}.tray,.scope{border:3px solid;background:#f8f4e9;box-shadow:10px 10px 0 var(--ink)}.tray{padding:24px;transform:rotate(-.5deg)}.label{font:700 .66rem monospace;letter-spacing:.14em}.tray h2,.scope h2{font:900 2.4rem/1 Arial Black;margin:8px 0 20px}.slots{display:grid;gap:11px}.slot{border:2px dashed;padding:13px;background:#fff}.slot b{font:.7rem monospace}.slot input,.slot textarea{display:block;width:100%;border:0;border-bottom:2px solid;padding:8px 0;background:transparent}.slot textarea{min-height:80px}.source-pocket{margin-top:15px}.source-pocket summary{font:900 .72rem monospace;cursor:pointer;background:var(--yellow);padding:10px}.source-pocket .slot{margin-top:9px}.clamp{width:100%;border:0;background:var(--blue);color:white;padding:15px;font-weight:900;margin-top:16px}.scope{padding:24px;background:#242624;color:white}.lens{width:min(55vw,420px);aspect-ratio:1;margin:20px auto;border:26px solid var(--steel);border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#18241f 0 30%,#0b0c0c 31% 52%,#31413a 53%);box-shadow:inset 0 0 40px #000,0 0 0 8px #111}.lens span{text-align:center;font:900 1rem monospace;color:#9bffc7}.reader{display:flex;gap:8px}.reader input{flex:1;min-width:0;padding:11px;background:#111;border:1px solid #fff6;color:white}.reader button,.actions button{border:1px solid white;background:transparent;color:white;padding:10px;font-weight:900}.actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.actions button:hover{background:var(--yellow);color:#111}.run-tape{font:12px/1.55 monospace;background:#f8f4e9;color:#111;padding:18px;min-height:180px;white-space:pre-wrap;overflow:auto;border-left:12px solid var(--red)}.status{color:var(--yellow);font:700 .7rem monospace}.challenge{display:flex;gap:8px}.challenge input{flex:1;min-width:0;padding:9px}.challenge button{background:var(--red);border:0;padding:9px;font-weight:900}footer{padding:25px 4vw;background:var(--ink);color:white;display:flex;justify-content:space-between;font:.7rem monospace}dialog{border:3px solid;padding:0;width:min(660px,94vw);background:var(--paper);box-shadow:14px 14px 0 var(--red)}dialog::backdrop{background:#000b}.modal{padding:25px}.modal h2{font:900 3rem/1 Arial Black;margin:0 0 15px}.modal .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.modal label{display:grid;gap:5px;font:700 .67rem monospace}.modal input{padding:10px;border:2px solid}.modal .wide{grid-column:1/-1}.modal button{padding:11px;font-weight:900}.demo{background:var(--yellow);border:2px solid;margin:12px 0}.submit{background:var(--ink);color:white;border:0;width:100%}@media(max-width:800px){.hero,.bench{grid-template-columns:1fr}.tray{transform:none}.lens{width:72vw}.modal .grid{grid-template-columns:1fr}.modal .wide{grid-column:auto}footer{flex-direction:column;gap:8px}}
-</style></head><body><main class="pegboard"><header><span>FIXTURE FORGE / REPRODUCIBILITY BENCH</span><button class="connect" id="connect">CONNECT</button></header><section class="hero"><h1>BREAK<br>THE<br>BADGE.</h1><div><p>Freeze a specimen. Declare the machine. Let an independent runner reproduce the output—and leave the result open to a designated challenger.</p><button id="newFixture">PIN A NEW SPECIMEN</button></div></section><section class="bench"><form class="tray" id="specimenTray"><span class="label">SPECIMEN TRAY / AUTHOR</span><h2>Freeze the claim</h2><div class="slots"><div class="slot"><b>FIXTURE ID</b><input id="id" required placeholder="PARSER-UTF8-01"></div><div class="slot"><b>TITLE</b><input id="title" required placeholder="Canonical UTF-8 parser fixture"></div><div class="slot"><b>NOMINATED RUNNER</b><input id="runner" required placeholder="0x…"></div><div class="slot"><b>DESIGNATED CHALLENGER</b><input id="challenger" required placeholder="0x…"></div><div class="slot"><b>DECLARED ENVIRONMENT</b><textarea id="environment" required placeholder="Runtime, operating system, dependency lock…"></textarea></div><div class="slot"><b>EXPECTED OUTPUT</b><input id="expected" required placeholder="Exact signature or bounded result"></div><div class="slot"><b>CHALLENGE WINDOW / SECONDS</b><input id="window" type="number" min="300" max="604800" value="86400"></div></div><details class="source-pocket"><summary>ATTACH FROZEN PUBLIC SPECIFICATION</summary><div class="slot"><b>SPECIFICATION LOCATION</b><input id="spec" type="url" required placeholder="https://…"></div><button class="demo" type="button" id="demoSpec">LOAD OPERATOR DEMO SPEC</button></details><button class="clamp" type="submit">CLAMP SPECIMEN TO THE BENCH</button></form><section class="scope" id="microscope"><span class="label">DIFF MICROSCOPE / RUNNER + CHALLENGER</span><h2>Inspect the run</h2><div class="lens"><span id="lensText">NO SPECIMEN<br>UNDER GLASS</span></div><div class="reader"><input id="active" placeholder="Fixture ID"><button id="read" type="button">LOAD</button></div><div class="actions"><button id="recordOpen" type="button">RECORD RUN</button><button id="finalize" type="button">FINALIZE WINDOW</button></div><div class="challenge"><input id="challengeUrl" type="url" placeholder="Independent challenge evidence"><button id="challenge" type="button">CHALLENGE</button></div><p class="status" id="status">STUDIONET CONTRACT LIVE · READY FOR WALLET</p><pre class="run-tape" id="runTape">RUN TAPE\n────────\nNo fixture loaded.</pre></section></section></main><footer><span>Operator demo evidence is labelled and is not an independent authority.</span><a id="explorer" href="https://explorer-studio.genlayer.com/address/0xf05e56187452601F14ffec9ab2Beb66f9881e2D1" target="_blank" rel="noreferrer">OPEN CONTRACT IN EXPLORER ↗</a></footer>
-<dialog id="runDialog"><form class="modal" id="runForm"><h2>Feed the microscope.</h2><p>The runner attaches an observed output and an execution artifact. They must resolve from different hosts than the frozen specification.</p><div class="grid"><label>FIXTURE ID<input id="runId" required></label><label>OBSERVED OUTPUT<input id="output" type="url" required></label><label class="wide">RUN ARTIFACT<input id="artifact" type="url" required></label></div><button class="demo" type="button" id="demoRun">LOAD OPERATOR DEMO RUN</button><button class="submit" type="submit">RECORD PUBLIC RUN</button><button type="button" id="closeRun">CANCEL</button></form></dialog>
-<script type="module">import{createClient}from'https://esm.sh/genlayer-js@1.1.8';import{studionet}from'https://esm.sh/genlayer-js@1.1.8/chains';const $=s=>document.querySelector(s),ADDRESS='0xf05e56187452601F14ffec9ab2Beb66f9881e2D1';let client;const setStatus=t=>$('#status').textContent=t;async function connect(){if(!window.ethereum)throw Error('Install MetaMask or Rabby.');const[a]=await ethereum.request({method:'eth_requestAccounts'});client=createClient({chain:studionet,account:a,provider:ethereum});await client.connect('studionet');$('#connect').textContent=a.slice(0,6)+'…'+a.slice(-4)}async function read(){if(!client)await connect();const x=await client.readContract({address:ADDRESS,functionName:'get_fixture',args:[$('#active').value.trim()]});$('#runTape').textContent=JSON.stringify(x,(_,v)=>typeof v==='bigint'?v.toString():v,2);$('#lensText').innerHTML=`${x.state}<br>${x.verdict||'AWAITING RUN'}`}async function write(fn,args){if(!client)await connect();const h=await client.writeContract({address:ADDRESS,functionName:fn,args,value:0n});setStatus('SUBMITTED '+h.slice(0,12)+'… / WAITING FINALIZED');await client.waitForTransactionReceipt({hash:h,status:'FINALIZED',retries:180,interval:5000});setStatus('FINALIZED '+h);await read()}$('#connect').onclick=()=>connect().catch(e=>setStatus(e.message));$('#newFixture').onclick=()=>$('#specimenTray').scrollIntoView({behavior:'smooth'});$('#specimenTray').onsubmit=e=>{e.preventDefault();const id=$('#id').value.trim();$('#active').value=id;write('specify',[id,$('#title').value.trim(),$('#runner').value.trim(),$('#challenger').value.trim(),$('#environment').value.trim(),$('#expected').value.trim(),$('#spec').value.trim(),Number($('#window').value)]).catch(e=>setStatus(e.message))};$('#recordOpen').onclick=()=>{$('#runId').value=$('#active').value;$('#runDialog').showModal()};$('#closeRun').onclick=()=>$('#runDialog').close();$('#runForm').onsubmit=e=>{e.preventDefault();$('#active').value=$('#runId').value.trim();write('record_run',[$('#runId').value.trim(),$('#output').value.trim(),$('#artifact').value.trim()]).then(()=>$('#runDialog').close()).catch(e=>setStatus(e.message))};$('#challenge').onclick=()=>write('challenge',[$('#active').value.trim(),$('#challengeUrl').value.trim()]).catch(e=>setStatus(e.message));$('#finalize').onclick=()=>write('finalize',[$('#active').value.trim()]).catch(e=>setStatus(e.message));$('#read').onclick=()=>read().catch(e=>setStatus(e.message));$('#demoSpec').onclick=()=>$('#spec').value='https://raw.githubusercontent.com/warnedwarn/fixture-forge/51e4dfab0d4650d3ff9694a691fae654bf34a497/evidence/frozen-spec.txt';$('#demoRun').onclick=()=>{$('#output').value='https://cdn.jsdelivr.net/gh/warnedwarn/fixture-forge@51e4dfab0d4650d3ff9694a691fae654bf34a497/evidence/observed-output.txt';$('#artifact').value='https://github.com/warnedwarn/fixture-forge/raw/51e4dfab0d4650d3ff9694a691fae654bf34a497/evidence/run-artifact.txt'};</script></body></html>
-
-
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Fixture Forge</title>
+    <style>
+      :root {
+        --ink: #17140f;
+        --paper: #eee7d5;
+        --red: #ff4f36;
+        --yellow: #ffd84b;
+        --steel: #aeb7b4;
+        --blue: #1746ff;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          16px/1.4 Arial,
+          sans-serif;
+      }
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+      button {
+        cursor: pointer;
+      }
+      .pegboard {
+        background-color: #d9d0bd;
+        background-image: radial-gradient(#8e877b 1.4px, transparent 1.4px);
+        background-size: 19px 19px;
+        min-height: 100vh;
+        padding: 22px 4vw 80px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 3px solid;
+        background: var(--yellow);
+        padding: 13px 18px;
+        box-shadow: 7px 7px 0 var(--ink);
+        font: 900 0.75rem monospace;
+        letter-spacing: 0.12em;
+      }
+      .connect {
+        background: var(--ink);
+        color: white;
+        border: 0;
+        padding: 9px 13px;
+        font-weight: 900;
+      }
+      .hero {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 8vw;
+        align-items: end;
+        padding: 10vh 2vw 7vh;
+      }
+      .hero h1 {
+        font: 900 clamp(4.4rem, 12vw, 11rem) / 0.72 Arial Black;
+        margin: 0;
+        letter-spacing: -0.09em;
+      }
+      .hero p {
+        font: 1.3rem/1.5 Georgia;
+        max-width: 30rem;
+      }
+      .hero button {
+        background: var(--red);
+        border: 3px solid;
+        padding: 15px 20px;
+        font-weight: 900;
+        box-shadow: 6px 6px 0 var(--ink);
+      }
+      .bench {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 28px;
+        align-items: start;
+      }
+      .tray,
+      .scope {
+        border: 3px solid;
+        background: #f8f4e9;
+        box-shadow: 10px 10px 0 var(--ink);
+      }
+      .tray {
+        padding: 24px;
+        transform: rotate(-0.5deg);
+      }
+      .label {
+        font: 700 0.66rem monospace;
+        letter-spacing: 0.14em;
+      }
+      .tray h2,
+      .scope h2 {
+        font: 900 2.4rem/1 Arial Black;
+        margin: 8px 0 20px;
+      }
+      .slots {
+        display: grid;
+        gap: 11px;
+      }
+      .slot {
+        border: 2px dashed;
+        padding: 13px;
+        background: #fff;
+      }
+      .slot b {
+        font: 0.7rem monospace;
+      }
+      .slot input,
+      .slot textarea {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid;
+        padding: 8px 0;
+        background: transparent;
+      }
+      .slot textarea {
+        min-height: 80px;
+      }
+      .source-pocket {
+        margin-top: 15px;
+      }
+      .source-pocket summary {
+        font: 900 0.72rem monospace;
+        cursor: pointer;
+        background: var(--yellow);
+        padding: 10px;
+      }
+      .source-pocket .slot {
+        margin-top: 9px;
+      }
+      .clamp {
+        width: 100%;
+        border: 0;
+        background: var(--blue);
+        color: white;
+        padding: 15px;
+        font-weight: 900;
+        margin-top: 16px;
+      }
+      .scope {
+        padding: 24px;
+        background: #242624;
+        color: white;
+      }
+      .lens {
+        width: min(55vw, 420px);
+        aspect-ratio: 1;
+        margin: 20px auto;
+        border: 26px solid var(--steel);
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(
+          circle,
+          #18241f 0 30%,
+          #0b0c0c 31% 52%,
+          #31413a 53%
+        );
+        box-shadow:
+          inset 0 0 40px #000,
+          0 0 0 8px #111;
+      }
+      .lens span {
+        text-align: center;
+        font: 900 1rem monospace;
+        color: #9bffc7;
+      }
+      .reader {
+        display: flex;
+        gap: 8px;
+      }
+      .reader input {
+        flex: 1;
+        min-width: 0;
+        padding: 11px;
+        background: #111;
+        border: 1px solid #fff6;
+        color: white;
+      }
+      .reader button,
+      .actions button {
+        border: 1px solid white;
+        background: transparent;
+        color: white;
+        padding: 10px;
+        font-weight: 900;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 12px 0;
+      }
+      .actions button:hover {
+        background: var(--yellow);
+        color: #111;
+      }
+      .run-tape {
+        font: 12px/1.55 monospace;
+        background: #f8f4e9;
+        color: #111;
+        padding: 18px;
+        min-height: 180px;
+        white-space: pre-wrap;
+        overflow: auto;
+        border-left: 12px solid var(--red);
+      }
+      .status {
+        color: var(--yellow);
+        font: 700 0.7rem monospace;
+      }
+      .challenge {
+        display: flex;
+        gap: 8px;
+      }
+      .challenge input {
+        flex: 1;
+        min-width: 0;
+        padding: 9px;
+      }
+      .challenge button {
+        background: var(--red);
+        border: 0;
+        padding: 9px;
+        font-weight: 900;
+      }
+      footer {
+        padding: 25px 4vw;
+        background: var(--ink);
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        font: 0.7rem monospace;
+      }
+      dialog {
+        border: 3px solid;
+        padding: 0;
+        width: min(660px, 94vw);
+        background: var(--paper);
+        box-shadow: 14px 14px 0 var(--red);
+      }
+      dialog::backdrop {
+        background: #000b;
+      }
+      .modal {
+        padding: 25px;
+      }
+      .modal h2 {
+        font: 900 3rem/1 Arial Black;
+        margin: 0 0 15px;
+      }
+      .modal .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .modal label {
+        display: grid;
+        gap: 5px;
+        font: 700 0.67rem monospace;
+      }
+      .modal input {
+        padding: 10px;
+        border: 2px solid;
+      }
+      .modal .wide {
+        grid-column: 1/-1;
+      }
+      .modal button {
+        padding: 11px;
+        font-weight: 900;
+      }
+      .demo {
+        background: var(--yellow);
+        border: 2px solid;
+        margin: 12px 0;
+      }
+      .submit {
+        background: var(--ink);
+        color: white;
+        border: 0;
+        width: 100%;
+      }
+      @media (max-width: 800px) {
+        .hero,
+        .bench {
+          grid-template-columns: 1fr;
+        }
+        .tray {
+          transform: none;
+        }
+        .lens {
+          width: 72vw;
+        }
+        .modal .grid {
+          grid-template-columns: 1fr;
+        }
+        .modal .wide {
+          grid-column: auto;
+        }
+        footer {
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="pegboard">
+      <header>
+        <span>FIXTURE FORGE / REPRODUCIBILITY BENCH</span
+        ><button class="connect" id="connect">CONNECT</button>
+      </header>
+      <section class="hero">
+        <h1>BREAK<br />THE<br />BADGE.</h1>
+        <div>
+          <p>
+            Hash-pin a specimen. Declare the machine. Let a separately addressed
+            runner reproduce the output, then leave the result open to a
+            designated challenger.
+          </p>
+          <button id="newFixture">PIN A NEW SPECIMEN</button>
+        </div>
+      </section>
+      <section class="bench">
+        <form class="tray" id="specimenTray">
+          <span class="label">SPECIMEN TRAY / AUTHOR</span>
+          <h2>Freeze the claim</h2>
+          <div class="slots">
+            <div class="slot">
+              <b>FIXTURE ID</b
+              ><input id="id" required placeholder="PARSER-UTF8-01" />
+            </div>
+            <div class="slot">
+              <b>TITLE</b
+              ><input
+                id="title"
+                required
+                placeholder="Canonical UTF-8 parser fixture"
+              />
+            </div>
+            <div class="slot">
+              <b>NOMINATED RUNNER</b
+              ><input id="runner" required placeholder="0x…" />
+            </div>
+            <div class="slot">
+              <b>DESIGNATED CHALLENGER</b
+              ><input id="challenger" required placeholder="0x…" />
+            </div>
+            <div class="slot">
+              <b>DECLARED ENVIRONMENT</b
+              ><textarea
+                id="environment"
+                required
+                placeholder="Runtime, operating system, dependency lock…"
+              ></textarea>
+            </div>
+            <div class="slot">
+              <b>EXPECTED OUTPUT</b
+              ><input
+                id="expected"
+                required
+                placeholder="Exact signature or bounded result"
+              />
+            </div>
+            <div class="slot">
+              <b>CHALLENGE WINDOW / SECONDS</b
+              ><input
+                id="window"
+                type="number"
+                min="300"
+                max="604800"
+                value="86400"
+              />
+            </div>
+          </div>
+          <details class="source-pocket">
+            <summary>ATTACH AND HASH-PIN PUBLIC SPECIFICATION</summary>
+            <div class="slot">
+              <b>SPECIFICATION LOCATION</b
+              ><input id="spec" type="url" required placeholder="https://…" />
+            </div>
+            <button class="demo" type="button" id="demoSpec">
+              LOAD OPERATOR DEMO SPEC
+            </button>
+          </details>
+          <button class="clamp" type="submit">
+            HASH-PIN SPECIMEN TO THE BENCH
+          </button>
+        </form>
+        <section class="scope" id="microscope">
+          <span class="label">DIFF MICROSCOPE / RUNNER + CHALLENGER</span>
+          <h2>Inspect the run</h2>
+          <div class="lens">
+            <span id="lensText">NO SPECIMEN<br />UNDER GLASS</span>
+          </div>
+          <div class="reader">
+            <input id="active" placeholder="Fixture ID" /><button
+              id="read"
+              type="button"
+            >
+              LOAD
+            </button>
+          </div>
+          <div class="actions">
+            <button id="recordOpen" type="button">RECORD RUN</button
+            ><button id="finalize" type="button">FINALIZE WINDOW</button>
+          </div>
+          <div class="challenge">
+            <input
+              id="challengeUrl"
+              type="url"
+              placeholder="Independent challenge evidence"
+            /><button id="challenge" type="button">CHALLENGE</button>
+          </div>
+          <p class="status" id="status">
+            STUDIONET CONTRACT LIVE · READY FOR WALLET
+          </p>
+          <pre class="run-tape" id="runTape">
+RUN TAPE\n────────\nNo fixture loaded.</pre
+          >
+        </section>
+      </section>
+    </main>
+    <footer>
+      <span
+        >Operator demo evidence is labelled and proves address separation, not
+        independent authority.</span
+      ><a
+        id="explorer"
+        href="https://explorer-studio.genlayer.com/address/0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8"
+        target="_blank"
+        rel="noreferrer"
+        >OPEN CONTRACT IN EXPLORER ↗</a
+      >
+    </footer>
+    <dialog id="runDialog">
+      <form class="modal" id="runForm">
+        <h2>Feed the microscope.</h2>
+        <p>
+          The runner attaches an observed output and an execution artifact. They
+          must resolve from different hosts than the frozen specification.
+        </p>
+        <div class="grid">
+          <label>FIXTURE ID<input id="runId" required /></label
+          ><label
+            >OBSERVED OUTPUT<input id="output" type="url" required /></label
+          ><label class="wide"
+            >RUN ARTIFACT<input id="artifact" type="url" required
+          /></label>
+        </div>
+        <button class="demo" type="button" id="demoRun">
+          LOAD OPERATOR DEMO RUN</button
+        ><button class="submit" type="submit">RECORD PUBLIC RUN</button
+        ><button type="button" id="closeRun">CANCEL</button>
+      </form>
+    </dialog>
+    <script type="module">
+      import { createClient } from "https://esm.sh/genlayer-js@1.1.8";
+      import { studionet } from "https://esm.sh/genlayer-js@1.1.8/chains";
+      const $ = (s) => document.querySelector(s),
+        ADDRESS = "0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8";
+      let client;
+      const setStatus = (t) => ($("#status").textContent = t);
+      async function connect() {
+        if (!window.ethereum) throw Error("Install MetaMask or Rabby.");
+        const [a] = await ethereum.request({ method: "eth_requestAccounts" });
+        client = createClient({
+          chain: studionet,
+          account: a,
+          provider: ethereum,
+        });
+        await client.connect("studionet");
+        $("#connect").textContent = a.slice(0, 6) + "…" + a.slice(-4);
+      }
+      async function read() {
+        if (!client) await connect();
+        const x = await client.readContract({
+          address: ADDRESS,
+          functionName: "get_fixture",
+          args: [$("#active").value.trim()],
+        });
+        $("#runTape").textContent = JSON.stringify(
+          x,
+          (_, v) => (typeof v === "bigint" ? v.toString() : v),
+          2,
+        );
+        $("#lensText").innerHTML =
+          `${x.state}<br>${x.verdict || "AWAITING RUN"}`;
+      }
+      async function write(fn, args) {
+        if (!client) await connect();
+        const h = await client.writeContract({
+          address: ADDRESS,
+          functionName: fn,
+          args,
+          value: 0n,
+        });
+        setStatus("SUBMITTED " + h.slice(0, 12) + "… / WAITING FINALIZED");
+        await client.waitForTransactionReceipt({
+          hash: h,
+          status: "FINALIZED",
+          retries: 180,
+          interval: 5000,
+        });
+        setStatus("FINALIZED " + h);
+        await read();
+      }
+      $("#connect").onclick = () =>
+        connect().catch((e) => setStatus(e.message));
+      $("#newFixture").onclick = () =>
+        $("#specimenTray").scrollIntoView({ behavior: "smooth" });
+      $("#specimenTray").onsubmit = (e) => {
+        e.preventDefault();
+        const id = $("#id").value.trim();
+        $("#active").value = id;
+        write("specify", [
+          id,
+          $("#title").value.trim(),
+          $("#runner").value.trim(),
+          $("#challenger").value.trim(),
+          $("#environment").value.trim(),
+          $("#expected").value.trim(),
+          $("#spec").value.trim(),
+          Number($("#window").value),
+        ]).catch((e) => setStatus(e.message));
+      };
+      $("#recordOpen").onclick = () => {
+        $("#runId").value = $("#active").value;
+        $("#runDialog").showModal();
+      };
+      $("#closeRun").onclick = () => $("#runDialog").close();
+      $("#runForm").onsubmit = (e) => {
+        e.preventDefault();
+        $("#active").value = $("#runId").value.trim();
+        write("record_run", [
+          $("#runId").value.trim(),
+          $("#output").value.trim(),
+          $("#artifact").value.trim(),
+        ])
+          .then(() => $("#runDialog").close())
+          .catch((e) => setStatus(e.message));
+      };
+      $("#challenge").onclick = () =>
+        write("challenge", [
+          $("#active").value.trim(),
+          $("#challengeUrl").value.trim(),
+        ]).catch((e) => setStatus(e.message));
+      $("#finalize").onclick = () =>
+        write("finalize", [$("#active").value.trim()]).catch((e) =>
+          setStatus(e.message),
+        );
+      $("#read").onclick = () => read().catch((e) => setStatus(e.message));
+      $("#demoSpec").onclick = () =>
+        ($("#spec").value =
+          "https://raw.githubusercontent.com/warnedwarn/fixture-forge/5c531bc4c3a299923819c173900fc9e9e1fb2c5a/evidence/frozen-spec.txt");
+      $("#demoRun").onclick = () => {
+        $("#output").value =
+          "https://cdn.jsdelivr.net/gh/warnedwarn/fixture-forge@5c531bc4c3a299923819c173900fc9e9e1fb2c5a/evidence/observed-output.txt";
+        $("#artifact").value =
+          "https://raw.githack.com/warnedwarn/fixture-forge/5c531bc4c3a299923819c173900fc9e9e1fb2c5a/evidence/run-artifact.txt";
+      };
+    </script>
+  </body>
+</html>
