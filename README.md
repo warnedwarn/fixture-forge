@@ -8,7 +8,7 @@ The author nominates a runner and a separate challenger, then fetches and hash-p
 
 ## Drawer B: what the quorum examines
 
-Validators independently fetch the specification, output, and artifact. Every source must be valid UTF-8 and no larger than 12,000 bytes. They agree on a closed `REPRODUCED` or `DIVERGED` verdict, a bounded variance note, and the digest of every fetched byte sequence. A leader cannot relabel the result, replace the frozen specification, or detach the verdict from its sources without failing validator comparison.
+Validators independently fetch the specification, output, and artifact. Every source must be valid UTF-8 and no larger than 12,000 bytes. They agree on a closed `REPRODUCED` or `DIVERGED` verdict and the digest of every fetched byte sequence. The stored variance label is derived deterministically from that verdict, so harmless prose differences cannot break consensus. A leader cannot relabel the result, replace the frozen specification, or detach the verdict from its sources without failing validator comparison.
 
 ## Drawer C: how a record closes
 

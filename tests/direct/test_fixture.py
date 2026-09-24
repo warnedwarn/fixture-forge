@@ -3,7 +3,7 @@ from conftest import CONTRACT
 def setup(vm,deploy,alice,bob,charlie):
  vm.warp('2035-01-01T00:00:00+00:00');vm.sender=alice;c=deploy(CONTRACT);vm.mock_web(r'spec\.example',{'status':200,'body':'input=alpha; expected=sha256:7f-demo'});c.specify('fx-7','Canonical parser fixture','0x'+bob.hex(),'0x'+charlie.hex(),'Python 3.13 / UTF-8 / Linux','sha256:7f-demo','https://spec.example/fixture',600);return c
 def mocks(vm,verdict='REPRODUCED'):
- vm.mock_web(r'spec\.example',{'status':200,'body':'input=alpha; expected=sha256:7f-demo'});vm.mock_web(r'output\.example',{'status':200,'body':'sha256:7f-demo'});vm.mock_web(r'artifact\.example',{'status':200,'body':'python 3.13 utf-8 linux'});vm.mock_llm(r'.*FixtureForge reproducibility inspection.*','{"verdict":"'+verdict+'","variance":"No unexplained variance."}')
+ vm.mock_web(r'spec\.example',{'status':200,'body':'input=alpha; expected=sha256:7f-demo'});vm.mock_web(r'output\.example',{'status':200,'body':'sha256:7f-demo'});vm.mock_web(r'artifact\.example',{'status':200,'body':'python 3.13 utf-8 linux'});vm.mock_llm(r'.*FixtureForge reproducibility inspection.*','{"verdict":"'+verdict+'"}')
 
 def test_reproducible_run_and_permissionless_finalization(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie):
  c=setup(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie);direct_vm.sender=direct_bob;mocks(direct_vm);c.record_run('fx-7','https://output.example/value','https://artifact.example/log');assert c.get_fixture('fx-7')['state']=='RUN_RECORDED';direct_vm.warp('2035-01-01T00:11:00+00:00');direct_vm.sender=direct_alice;c.finalize('fx-7');assert c.get_fixture('fx-7')['state']=='VERIFIED'
