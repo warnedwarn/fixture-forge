@@ -19,5 +19,14 @@
     "finalizer": "0x412d61db014fCdDda12e33b826f63B8ef9AC2E87"
   },
   "roleEvidence": "The author and nominated runner are different signer addresses. StudioNet records the recordRun transaction as signed by the nominated runner, not the author. The contract rejects the author as runner or challenger and rejects a shared runner/challenger address.",
-  "independenceScope": "On-chain signer-role separation; no off-chain organizational-affiliation claim."
+  "independenceScope": "On-chain signer-role separation; no off-chain organizational-affiliation claim.",
+  "negativeRoleGuard": {
+    "transaction": "0xc4c2379d0503744a93b76d9438f9dd3080d57dfb39001a5396aca98cf673a697",
+    "sender": "0x013A0745a3b2DbF87f4AB377266fCcb7e6eEC88A",
+    "attemptedRole": "runner",
+    "status": "FINALIZED",
+    "consensus": "MAJORITY_AGREE",
+    "execution": "ERROR",
+    "expectedError": "[EXPECTED] complete independent fixture required"
+  }
 }
