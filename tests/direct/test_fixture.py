@@ -10,6 +10,11 @@ def test_reproducible_run_and_permissionless_finalization(direct_vm,direct_deplo
 def test_only_runner_can_record(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie):
  c=setup(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie);mocks(direct_vm)
  with direct_vm.expect_revert('nominated runner'):c.record_run('fx-7','https://output.example/value','https://artifact.example/log')
+def test_author_cannot_fill_runner_or_challenger_role(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie):
+ direct_vm.warp('2035-01-01T00:00:00+00:00');direct_vm.sender=direct_alice;c=direct_deploy(CONTRACT);direct_vm.mock_web(r'spec\.example',{'status':200,'body':'input=alpha; expected=sha256:7f-demo'})
+ with direct_vm.expect_revert('complete independent fixture'):c.specify('self-run','Canonical parser fixture','0x'+direct_alice.hex(),'0x'+direct_charlie.hex(),'Python 3.13 / UTF-8 / Linux','sha256:7f-demo','https://spec.example/fixture',600)
+ with direct_vm.expect_revert('complete independent fixture'):c.specify('self-challenge','Canonical parser fixture','0x'+direct_bob.hex(),'0x'+direct_alice.hex(),'Python 3.13 / UTF-8 / Linux','sha256:7f-demo','https://spec.example/fixture',600)
+ with direct_vm.expect_revert('complete independent fixture'):c.specify('same-role','Canonical parser fixture','0x'+direct_bob.hex(),'0x'+direct_bob.hex(),'Python 3.13 / UTF-8 / Linux','sha256:7f-demo','https://spec.example/fixture',600)
 def test_validator_rejects_forged_verdict(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie):
  c=setup(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie);mocks(direct_vm);x=c.fixtures['FX-7'];result=c._judge_run(x,[x.spec_url,'https://output.example/value','https://artifact.example/log']);assert direct_vm.run_validator(leader_result=result) is True;forged=dict(result);forged['verdict']='DIVERGED';assert direct_vm.run_validator(leader_result=forged) is False
 def test_material_challenge_preserves_source(direct_vm,direct_deploy,direct_alice,direct_bob,direct_charlie):

@@ -23,8 +23,8 @@ genvm-lint contracts/contract.py
 python -m pytest -q
 ```
 
-The files under `evidence/` are plainly labelled operator-created technical fixtures. They demonstrate the workflow; they are not independent real-world authorities.
+The files under `evidence/` are technical fixtures. Independence in this protocol is enforced at the signer-role boundary: the author address cannot be nominated as runner or challenger, the two review roles cannot share an address, and only the nominated runner can record the run.
 
 ## Studio coordinates
 
-StudioNet contract: [`0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8`](https://explorer-studio.genlayer.com/address/0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8). Live record `REMEDIATION-1790254214` was specified by the author address, recorded by a different runner address, and permissionlessly finalized by a fourth address after its challenge window as `VERIFIED`. These are separate user-controlled demo addresses, not independent authorities. All three transactions finalized with successful leader execution. Exact hashes and the deployed-source digest live in `deployment.json` and `evidence/network-run.json`. The public bench is published at [warnedwarn-fixture-forge.pages.dev](https://warnedwarn-fixture-forge.pages.dev/).
+StudioNet contract: [`0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8`](https://explorer-studio.genlayer.com/address/0xeF62CeE31C70D22D8f199ed2aB7808e2bA2F5Af8). Live record `REMEDIATION-1790254214` was created by `0x013A…C88A`, recorded by the separately signed nominated runner `0xAD04…1FD4`, and permissionlessly finalized by `0x412d…2E87` after its challenge window as `VERIFIED`. StudioNet reports every transaction as `FINALIZED`; the repository records the complete hashes, role addresses, stored specification digest, and deployed-source digest in `deployment.json` and `evidence/network-run.json`. The public bench is published at [warnedwarn-fixture-forge.pages.dev](https://warnedwarn-fixture-forge.pages.dev/).
